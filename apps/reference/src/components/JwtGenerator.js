@@ -25,11 +25,7 @@ const serviceToken = `
 `.trim()
 
 export default function JwtGenerator({}) {
-  const secret = Array.from(crypto.getRandomValues(new Uint8Array(32)))
-    .map((x) => x.toString(16).padStart(2, '0'))
-    .join('')
-
-  const [jwtSecret, setJwtSecret] = useState(secret)
+  const [jwtSecret, setJwtSecret] = useState(generateSecretKey)
   const [token, setToken] = useState(anonToken)
   const [signedToken, setSignedToken] = useState('')
 
@@ -37,6 +33,17 @@ export default function JwtGenerator({}) {
     const val = e.target.value
     if (val == 'service') setToken(serviceToken)
     else setToken(anonToken)
+  }
+
+  const generateSecretKey = () => {
+    const charSet =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    var randomString = ''
+    for (var i = 0; i < 32; i++) {
+      var randomPoz = Math.floor(Math.random() * charSet.length)
+      randomString += charSet.substring(randomPoz, randomPoz + 1)
+    }
+    return randomString
   }
 
   const generate = () => {
