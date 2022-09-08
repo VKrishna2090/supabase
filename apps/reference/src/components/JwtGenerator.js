@@ -25,7 +25,7 @@ const serviceToken = `
 `.trim()
 
 export default function JwtGenerator({}) {
-  const [jwtSecret, setJwtSecret] = useState(generateSecretKey)
+  const [jwtSecret, setJwtSecret] = useState(generateSecretKey())
   const [token, setToken] = useState(anonToken)
   const [signedToken, setSignedToken] = useState('')
 
